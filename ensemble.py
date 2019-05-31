@@ -62,59 +62,24 @@ bag_kn.fit(X_train, y_train)
 acc_bkn = bag_kn.score(X_test, y_test)
 print(acc_bkn)
 
-#========Cross validation===========================
-from sklearn.model_selection import cross_val_score
-#================linear regression=======================
-acc_cvlr = cross_val_score(clf_lr,X_train, y_train, cv = 5)
-print(acc_cvlr)
-print(acc_cvlr.mean())
-print(acc_cvlr.std())
-
-acc_cvblr = cross_val_score(bag_lr,X_train, y_train, cv = 5)
-print(acc_cvblr)
-print(acc_cvblr.mean())
-print(acc_cvblr.std())
-
-#========Decision Tree============================
-acc_cvdc = cross_val_score(clf_dc,X_train, y_train, cv = 5)
-print(acc_cvdc)
-print(acc_cvdc.mean())
-print(acc_cvdc.std())
-
-acc_cvbdc = cross_val_score(bag_dc,X_train, y_train, cv = 5)
-print(acc_cvbdc)
-print(acc_cvbdc.mean())
-print(acc_cvbdc.std())
-#================================================
-#============KNN==================================
-acc_cvkn = cross_val_score(clf_kn,X_train, y_train, cv = 5)
-print(acc_cvkn)
-print(acc_cvkn.mean())
-print(acc_cvkn.std())
-
-acc_cvbkn = cross_val_score(bag_kn,X_train, y_train, cv = 5)
-print(acc_cvbkn)
-print(acc_cvbkn.mean())
-print(acc_cvbkn.std())
-
 #===========Visulaization==========================
 import pandas as pd
 import seaborn as sns
 #=============LR=================================
 """
-x=['lr','klr','blr','cvblr']
+x=['lr','blr']
 y=[acc_lr*100,acc_cvlr.mean()*100,acc_blr*100,acc_cvblr.mean()*100]
 cat=['first','second','third','fourth']
 df = pd.DataFrame(dict(Algorithms=x, Accuracy=y,cat=cat))
 ax1 = sns.barplot("Algorithms","Accuracy", data=df);
 """
 
-x = ['lr','lr','lr','lr','dt','dt','dt','dt','KNN','KNN','KNN','KNN']
-y=[acc_lr*100,acc_cvlr.mean()*100,acc_blr*100,acc_cvblr.mean()*100,
-   acc_dc*100,acc_cvdc.mean()*100,acc_bdc*100,acc_cvbdc.mean()*100,
-   acc_kn*100,acc_cvkn.mean()*100,acc_bkn*100,acc_cvbkn.mean()*100]
-cat = ['sim','cross_sim','bag','cross_bag',
-       'sim','cross_sim','bag','cross_bag',
-       'sim','cross_sim','bag','cross_bag']
+x = ['lr','lr','dt','dt','KNN','KNN']
+y=[acc_lr*100,acc_blr*100,
+   acc_dc*100,acc_bdc*100,
+   acc_kn*100,acc_bkn*100]
+category = ['simple','cross_simple','bag','cross_bag',
+       'simsimple','cross_simple','bag','cross_bag',
+       'simple','cross_simple','bag','cross_bag']
 df = pd.DataFrame(dict(Algorithms=x, Accuracy=y,cat=cat))
-ax = sns.barplot(x="cat", y="Accuracy", hue="Algorithms", data=df)
+ax = sns.barplot(x="category", y="Accuracy", hue="Algorithms", data=df)
